@@ -1,3 +1,5 @@
+import { Loader } from "/obvia/components/Loader.js";
+import { SuggestionRenderer } from "/obvia/components/AutoComplete/SuggestionRenderer.js";
 var loader = new Loader({
     id: 'loader'
 });
@@ -9,9 +11,11 @@ var mySGRenderer = new SuggestionRenderer({
     label: 'Suggestion :)',
     value: 5
 });
-mySGRenderer.on('endDraw', function (e) {
+mySGRenderer.on('endDraw', function(e) {
     loader.hide();
     mySGRenderer.label = "Loaded";
     mySGRenderer.value = 6;
 });
 $('#root').append(await mySGRenderer.render().$el);
+
+export { loader };

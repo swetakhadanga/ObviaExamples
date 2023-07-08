@@ -14,7 +14,7 @@ var myImage = new Image({
 
 });
 
-myImage.on('endDraw', function (e) {
+myImage.on('endDraw', function(e) {
     loader.hide();
 
 });
@@ -24,3 +24,4 @@ $('#root').append(await myImage.render().$el);
 function myImageLoaded(e) {
     console.log("Image Loaded");
 }
+export { loader };
