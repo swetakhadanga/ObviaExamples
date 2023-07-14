@@ -1,23 +1,19 @@
-import { HeaderNavBar } from "/obvia/components/NavBar/NavBar.js";
+import { NavBar } from "/obvia/components/NavBar/NavBar.js";
 import { Button } from "/obvia/components/Button/Button.js";
 import { TextInput } from "/obvia/components/TextInput/TextInput.js";
 import { Form } from "/obvia/components/Form/Form.js";
 import { DropDown } from "/obvia/components/DropDown/DropDown.js";
 import { Link } from "/obvia/components/Link/Link.js";
 
-let onClick = function() {
-    console.log("Item click", arguments);
-}
 
-var myHeaderNavBar = new HeaderNavBar({
+var myNavBar = new NavBar({
     id: "myHeaderNav",
-    websiteName: "My Website",
+
     components: [{
             ctor: Button,
             props: {
                 id: "homeButton",
                 css: {
-                    display: "inline",
                     width: "25%",
                 },
                 components: [{
@@ -34,7 +30,7 @@ var myHeaderNavBar = new HeaderNavBar({
         {
             ctor: Button,
             props: {
-                id: "page1Button",
+                id: "blogButton",
                 css: { width: "25%" },
                 components: [{
                     ctor: Link,
@@ -50,11 +46,8 @@ var myHeaderNavBar = new HeaderNavBar({
         {
             ctor: DropDown,
             props: {
-                id: "page2Dropdown",
+                id: "solutionDropdown",
                 label: "Solutions",
-                rendering: {
-                    direction: 'vertical'
-                },
                 css: {
                     width: "25%"
                 },
@@ -65,24 +58,13 @@ var myHeaderNavBar = new HeaderNavBar({
                 ],
                 labelField: "text",
                 valueField: "value",
-                onSelect: function(selectedValue) {
-                    console.log("Selected value:", selectedValue);
-                },
-                components: [{
-                    ctor: Link,
-                    props: {
-                        id: "menuItem",
-                        label: "Go to Solutions",
-                        href: "#",
-                        onClick: function() {
-                            var selectedOption = myHeaderNavBar.components.page2Dropdown.value;
-                            var link = document.createElement("a");
-                            link.href = getSolutionLink(selectedOption);
-                            link.target = "_blank";
-                            link.click();
-                        }
-                    }
-                }]
+                change: function() {
+                    var selectedOption = myNavBar.solutionDropdown.selectedItem.value;
+                    var link = document.createElement("a");
+                    link.href = getSolutionLink(selectedOption);
+                    link.target = "_blank";
+                    link.click();
+                }
             }
         },
         {
@@ -127,8 +109,8 @@ function getSolutionLink(selectedOption) {
     }
 }
 
-myHeaderNavBar.render().then(function(cmpInstance) {
+myNavBar.render().then(function(cmpInstance) {
     $('#root').append(cmpInstance.$el);
 });
 
-export { myHeaderNavBar };
+export { myNavBar };
